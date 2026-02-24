@@ -1,0 +1,40 @@
+<View>
+  <Header value="CogBench — Bloom's Taxonomy Classification" size="3"/>
+
+  <View style="box-shadow: 2px 2px 5px #999; padding: 15px; margin-top: 10px; border-radius: 5px; background: #f9f9f9;">
+    <Header value="Question" size="4"/>
+    <Text name="question_text" value="$question_text" granularity="paragraph"/>
+  </View>
+
+  <View style="display: flex; gap: 20px; margin-top: 10px;">
+    <View style="background: #eef; padding: 8px; border-radius: 4px;">
+      <Header value="Subject" size="5"/>
+      <Text name="subject" value="$subject"/>
+    </View>
+    <View style="background: #efe; padding: 8px; border-radius: 4px;">
+      <Header value="Type" size="5"/>
+      <Text name="question_type" value="$question_type"/>
+    </View>
+  </View>
+
+  <Header value="Bloom's Taxonomy Level" size="4" style="margin-top: 15px;"/>
+  <Choices name="bloom_level" toName="question_text" choice="single" required="true" showInline="true">
+    <Choice value="L1 Remember" hotkey="1" style="background: #fee2e2;"/>
+    <Choice value="L2 Understand" hotkey="2" style="background: #fef3c7;"/>
+    <Choice value="L3 Apply" hotkey="3" style="background: #d1fae5;"/>
+    <Choice value="L4 Analyze" hotkey="4" style="background: #dbeafe;"/>
+    <Choice value="L5 Evaluate" hotkey="5" style="background: #e0e7ff;"/>
+    <Choice value="L6 Create" hotkey="6" style="background: #ede9fe;"/>
+  </Choices>
+
+  <Header value="Confidence" size="4" style="margin-top: 10px;"/>
+  <Choices name="confidence" toName="question_text" choice="single" required="true" showInline="true">
+    <Choice value="High" hotkey="h"/>
+    <Choice value="Medium" hotkey="m"/>
+    <Choice value="Low" hotkey="l"/>
+  </Choices>
+
+  <Header value="Notes (optional)" size="5" style="margin-top: 10px;"/>
+  <TextArea name="notes" toName="question_text" required="false" rows="2"
+            placeholder="Optional: explain your reasoning, flag ambiguity, or note boundary cases"/>
+</View>

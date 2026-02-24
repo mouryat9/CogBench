@@ -1,0 +1,84 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Model checkpoints (large binary files)
+ccs_model/checkpoints/
+*.pt
+*.bin
+*.safetensors
+
+# Data files (will be on HuggingFace)
+data/processed/all_collected_questions.json
+data/processed/all_questions_silver_labeled.json
+data/processed/generated_questions/
+data/raw/yahya_2012/*.docx
+data/raw/mohammed_omar/*.docx
+data/raw/openstax/*.json
+data/raw/ap_released/
+data/raw/mit_ocw/
+data/annotations/label_studio_import/
+
+# Generated figures (reproducible from code)
+figures/*.png
+
+# Logs
+*.log
+label_studio.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vast.ai
+vast_ai/
+
+# Secrets
+.env
+*.key
+*.pem
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Internal notes and plans (not for public)
+plans/
+*.md.bak
+notes/
+TODO.md
+
+# Annotation data (private, contains annotator info)
+data/annotations/annotation_sample.json
+data/annotations/annotation_sample_600.json
+data/annotations/training_set.json
+data/annotations/label_studio_import/
+
+# Raw data source files (copyright / download yourself)
+data/raw/yahya_2012/
+data/raw/mohammed_omar/
+data/raw/openstax/
+data/raw/ap_released/
+data/raw/mit_ocw/
+
+# Label Studio
+label_studio.log
+start_services.sh
+
+# Scripts (internal tooling)
+scripts/

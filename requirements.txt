@@ -1,0 +1,27 @@
+# CogBench — NeurIPS 2026 Benchmark
+# Install: pip install -r requirements.txt
+
+# Dataset collection
+python-docx        # Parse DOCX supplementary files from PLOS ONE
+datasets           # HuggingFace datasets library (OpenStaxQA)
+requests           # HTTP downloads
+beautifulsoup4     # HTML parsing for OpenStax pages
+playwright         # Browser automation for JS-rendered OpenStax MCQs
+
+# Data processing
+pandas             # Tabular data manipulation
+numpy              # Numerical operations
+
+# Annotation
+label-studio       # Open-source annotation platform (web UI)
+scikit-learn       # ML utilities, metrics, stratified splitting
+statsmodels        # Statistical tests (Fleiss' kappa, etc.)
+
+# CCS Model (DeBERTa fine-tuning)
+torch              # PyTorch (install with --index-url https://download.pytorch.org/whl/cu118)
+torchvision        # Vision utilities
+transformers       # HuggingFace transformers (DeBERTa-v3-large)
+accelerate         # HuggingFace training utilities
+scipy              # Scientific computing, statistics
+matplotlib         # Plotting
+seaborn            # Statistical visualizations
