@@ -123,12 +123,14 @@ cogbench/
 
 ## Citation
 
+If you use CogBench in your research, please cite:
+
 ```bibtex
-@inproceedings{kunuku2026cogbench,
+@misc{kunuku2026cogbench,
   title={CogBench: A Benchmark for Evaluating Cognitive-Level Control in LLM Question Generation},
   author={Kunuku, Mourya Teja},
-  booktitle={Advances in Neural Information Processing Systems (NeurIPS) Datasets and Benchmarks Track},
-  year={2026}
+  year={2026},
+  url={https://github.com/mouryat9/CogBench}
 }
 ```
 
