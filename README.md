@@ -2,6 +2,12 @@
 
 CogBench is a benchmark for evaluating whether large language models can generate educational questions at specific cognitive levels according to Bloom's Taxonomy (Anderson & Krathwohl, 2001).
 
+## CogBench v2 (NeurIPS 2026)
+
+The evaluation harness for the NeurIPS 2026 Evaluations & Datasets Track paper (28 deterministic
+constraints, standard and adversarial modes, 13-model leaderboard) is in [`v2/`](v2/). The rest of
+this repository is the earlier v1 release (question collection, CCS classifier, baseline benchmark).
+
 ## Overview
 
 LLMs are increasingly used to generate educational content, but there is no standardized benchmark to evaluate whether they can generate questions at **specific cognitive levels**. CogBench fills this gap by providing:
