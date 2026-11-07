@@ -8,6 +8,7 @@ replaces it.
 
 - **Passages (CC-BY 4.0, Croissant metadata):** https://huggingface.co/datasets/cogbench-anonymous/cogbench-passages
 - **Leaderboard:** https://huggingface.co/spaces/cogbench-anonymous/cogbench-leaderboard
+- **CCS classifier checkpoints (retrained, 5 folds):** https://huggingface.co/mkunuku/cogbench-ccs; the model code is in `ccs_model/` at the repository root.
 - **License:** code Apache-2.0 (see `pyproject.toml`); passages CC-BY 4.0 (OpenStax).
 - **Contact:** mkunuku@students.kennesaw.edu
 
