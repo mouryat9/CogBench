@@ -846,7 +846,7 @@
       <li><a href="#citation">Citation</a></li>
       <li class="nav__divider"></li>
       <li><a href="https://pypi.org/project/cogbench/" target="_blank" rel="noopener" title="PyPI"><i class="fas fa-cube"></i></a></li>
-      <li><a href="https://github.com/cogbench/cogbench" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a></li>
+      <li><a href="https://github.com/mouryat9/CogBench/tree/main/v2" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a></li>
     </ul>
   </div>
 </nav>
@@ -857,7 +857,7 @@
     <div class="container">
       <div class="hero__inner fade-in">
         <h1 class="hero__title">CogBench</h1>
-        <p class="hero__subtitle">A verifiable constraint benchmark for evaluating cognitive-level control in LLM question generation using Bloom's Taxonomy</p>
+        <p class="hero__subtitle">Measuring how Bloom-level adherence in LLM question generation depends on verb cues</p>
         <div class="hero__stats" id="stats"></div>
         <div class="hero__install fade-in">
           <code class="hero__install-code">pip install cogbench</code>
@@ -865,8 +865,8 @@
             <a href="https://pypi.org/project/cogbench/" class="hero__badge" target="_blank" rel="noopener">
               <img src="https://img.shields.io/pypi/v/cogbench?style=flat-square&color=2563EB&label=PyPI" alt="PyPI version">
             </a>
-            <a href="https://github.com/cogbench/cogbench" class="hero__badge" target="_blank" rel="noopener">
-              <img src="https://img.shields.io/github/stars/cogbench/cogbench?style=flat-square&color=0F172A&label=GitHub" alt="GitHub stars">
+            <a href="https://github.com/mouryat9/CogBench/tree/main/v2" class="hero__badge" target="_blank" rel="noopener">
+              <img src="https://img.shields.io/github/stars/mouryat9/CogBench?style=flat-square&color=0F172A&label=GitHub" alt="GitHub stars">
             </a>
             <a href="https://pypi.org/project/cogbench/" class="hero__badge" target="_blank" rel="noopener">
               <img src="https://img.shields.io/pypi/pyversions/cogbench?style=flat-square&color=059669&label=Python" alt="Python versions">
@@ -875,7 +875,7 @@
         </div>
         <div class="hero__tagline">
           <i class="fas fa-check-circle"></i>
-          Deterministic evaluation &mdash; no LLM judge, no trained classifier, same input &rarr; same score
+          Deterministic evaluation &mdash; no LLM judge, same input &rarr; same score
         </div>
       </div>
     </div>
@@ -885,7 +885,7 @@
   <section class="content-section" id="leaderboard">
     <div class="container">
       <h2 class="content-section__title">Leaderboard</h2>
-      <p class="content-section__subtitle">Models ranked by Adversarial Gap. Lower gap = better cognitive understanding beyond keyword-stuffing.</p>
+      <p class="content-section__subtitle">Models ranked by Adversarial Gap. Lower gap = adherence depends less on level-characteristic verbs.</p>
 
       <div class="table-wrap fade-in">
         <table id="lb-table">
@@ -943,9 +943,9 @@
         </div>
         <div class="method-card fade-in">
           <h3><i class="fas fa-brain"></i> Tier 2 &mdash; Semantic</h3>
-          <p>NLI-based entailment verification using DeBERTa-v3 (fixed threshold, not a judge).</p>
+          <p>NLI checks using roberta-large-mnli (fixed thresholds, not a judge).</p>
           <ul>
-            <li>D3: Answer is supported by passage (&gt;65% entailment)</li>
+            <li>D3: Understand answer does not contradict the passage (contradiction &lt; 50%)</li>
             <li>P2: Apply scenario is novel (not in passage)</li>
             <li>C2: Create output is original (not extractable)</li>
           </ul>
@@ -1025,12 +1025,12 @@
           <h3><i class="fas fa-shuffle"></i> What Is Adversarial Mode?</h3>
           <p>In standard mode, an LLM generates an "Analyze" question and naturally uses words like "compare" and "contrast". Easy.</p>
           <p>In adversarial mode, the LLM must generate an "Analyze" question but using <strong>Remember</strong> vocabulary ("identify", "name", "list"). The structural constraints for Analyze (A2, A3, A4) must still pass.</p>
-          <p>This tests whether the model truly understands cognitive complexity or just keyword-stuffs.</p>
+          <p>This measures how much Bloom-level adherence depends on level-characteristic verbs.</p>
         </div>
         <div class="method-card fade-in">
           <h3><i class="fas fa-chart-line"></i> The Adversarial Gap</h3>
           <div class="formula">Gap = Standard CSR &minus; Adversarial CSR</div>
-          <p>If a model scores 85% standard but 25% adversarial, its 60pp gap means most "success" came from vocabulary cues, not genuine understanding.</p>
+          <p>If a model scores 85% standard but 25% adversarial, its 60pp gap means most "success" depended on level-characteristic vocabulary.</p>
           <p><strong>Ideal model:</strong> Gap &approx; 0 (cognitive control is vocabulary-independent).</p>
           <p><strong>Weak model:</strong> Large gap (relies on keywords for apparent competence).</p>
         </div>
@@ -1101,7 +1101,7 @@
       <div class="method-grid">
         <div class="method-card fade-in">
           <h3><i class="fas fa-check-double"></i> IFEval-Style Evaluation</h3>
-          <p>Inspired by <a href="https://arxiv.org/abs/2311.07911">IFEval</a>, every constraint is a deterministic rule. No trained classifier, no LLM-as-judge.</p>
+          <p>Inspired by <a href="https://arxiv.org/abs/2311.07911">IFEval</a>, every constraint is a deterministic rule. No LLM-as-judge; the paper also reports a trained classifier (CCS) as a second evaluator.</p>
           <div class="formula">Same input &rarr; same score, every time</div>
           <p>This eliminates inter-rater disagreement and makes results perfectly reproducible.</p>
         </div>
@@ -1157,8 +1157,8 @@
           <p>Verify the installation:</p>
           <div class="code-block">cogbench info</div>
           <p style="margin-top:0.5rem; font-size:0.78rem; color:var(--text-muted);">Or install from source:</p>
-          <div class="code-block" style="font-size:0.72rem;">git clone https://github.com/cogbench/cogbench
-cd cogbench && pip install -e .</div>
+          <div class="code-block" style="font-size:0.72rem;">git clone https://github.com/mouryat9/CogBench
+cd CogBench/v2 && pip install -e .</div>
         </div>
         <div class="method-card fade-in">
           <h3><i class="fas fa-play"></i> 2. Run the Benchmark</h3>
@@ -1202,7 +1202,7 @@ cd cogbench && pip install -e .</div>
     <div class="footer__inner">
       <div class="footer__social">
         <a href="https://pypi.org/project/cogbench/" aria-label="PyPI" target="_blank" rel="noopener"><i class="fas fa-cube"></i></a>
-        <a href="https://github.com/cogbench/cogbench" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
+        <a href="https://github.com/mouryat9/CogBench/tree/main/v2" aria-label="GitHub" target="_blank" rel="noopener"><i class="fab fa-github"></i></a>
         <a href="mailto:mkunuku@students.kennesaw.edu" aria-label="Email"><i class="fas fa-envelope"></i></a>
       </div>
       <p class="footer__copy">CogBench &mdash; Verifiable Cognitive Constraint Benchmark &mdash; <code style="font-size:0.7rem; background:rgba(255,255,255,0.1); padding:2px 6px; border-radius:3px;">pip install cogbench</code></p>

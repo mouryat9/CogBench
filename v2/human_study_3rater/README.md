@@ -1,15 +1,11 @@
 # CogBench 3-rater human study (November 2026)
 
 > **Status:** rating in progress. `items.json`, `answer_key.csv` and the ratings are withheld
-> until all three raters finish, so no rater can see the target levels; they will be added here
+> until all three raters finish; they will be added here
 > afterwards. `sync.sh` and `seed_study.py` are specific to the server that hosts the rating page.
 
-Added for the NeurIPS 2026 camera-ready (submission #3477). The meta-review made
-acceptance conditional on, among other things, an expanded human evaluation with a
-third annotator so that inter-annotator agreement could be computed over three
-raters with majority adjudication. The items from the rebuttal-period study were
-lost in the October 2026 server wipe, so this is a **new item set** rated by all
-three raters, not a re-rating of the original 40 shared items. Report it that way.
+A follow-up to the two-annotator study reported in the NeurIPS 2026 paper (submission #3477). It uses a
+new item set rated by three raters; its results are not part of the camera-ready paper.
 
 ## Protocol
 
@@ -47,9 +43,3 @@ three raters, not a re-rating of the original 40 shared items. Report it that wa
 The rating web page lives in the Classrooms repo
 (`frontend/src/pages/shared/CogBenchRatingPage.tsx`,
 `backend/api/routes/cogbench_rating.py`).
-
-## Still to record (needed for the paper and checklist)
-
-- Who the three raters are (expertise), how they were recruited, and how they
-  were compensated.
-- IRB status for this study.
