@@ -1,6 +1,6 @@
 # CogBench v2: evaluation harness for the NeurIPS 2026 paper
 
-This folder is the evaluation harness for **"CogBench: Measuring How Bloom-Level Control in LLM
+This folder is the evaluation harness for **"CogBench: Measuring How Bloom-Level Adherence in LLM
 Question Generation Depends on Verb Cues"** (Mourya Teja Kunuku, Kennesaw State University;
 NeurIPS 2026 Evaluations & Datasets Track). During double-blind review the same code was shared
 anonymously at `anonymous.4open.science/r/cogbench-422B`; that link has expired and this folder
@@ -16,6 +16,11 @@ the 28 constraints, standard and adversarial generation, evaluation, the Ollama,
 Together backends, the run scripts, and the constraint tests. It does **not** yet include the
 Anthropic (Claude) backend or the passage-clustered bootstrap (n = 2000) used for the paper's final
 numbers; this snapshot's bootstrap is unclustered with n = 1000. These will be added to this folder.
+
+**Prompt fix.** In adversarial mode, some level descriptions and hints name a verb that the same
+prompt forbids. `build_adversarial_prompt` now adds one sentence asking the model to express such
+requirements in other words. The paper's results used the original prompts; pass
+`paper_prompts=True` to reproduce them exactly.
 
 `human_study_3rater/` holds the protocol and scripts of the three-rater human study added for the
 camera-ready (see its README).

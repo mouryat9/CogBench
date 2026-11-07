@@ -32,7 +32,7 @@ TASK: Generate a {target_level_name}-level question (Bloom's Taxonomy), but you 
 
 The cognitive demand of your question must be {target_level_name} (students should {target_definition}), even though the wording uses {vocab_level_name}-level verbs like: {verb_list}.
 
-IMPORTANT: Do NOT use verbs like {forbidden_verbs}. Instead, use verbs like: {required_verbs}.
+IMPORTANT: Do NOT use verbs like {forbidden_verbs}. Instead, use verbs like: {required_verbs}.{conflict_note}
 
 {constraint_hints}
 
@@ -87,14 +87,24 @@ def build_standard_prompt(passage_text: str, level: int) -> str:
     )
 
 
+# The level definitions and hints can name a verb that the adversarial prompt
+# forbids (e.g. the Understand hint says "use words like ... explain"). This
+# sentence resolves the conflict. The NeurIPS 2026 paper's results were
+# generated without it; pass paper_prompts=True to reproduce those prompts.
+CONFLICT_NOTE = (" If the level description or the requirements below name one of "
+                 "the forbidden verbs, express that requirement in other words.")
+
+
 def build_adversarial_prompt(passage_text: str, target_level: int,
-                              vocab_level: int) -> str:
+                              vocab_level: int, paper_prompts: bool = False) -> str:
     """Build an adversarial generation prompt.
 
     Args:
         passage_text: The source passage
         target_level: The cognitive level the question should actually be at
         vocab_level: The level whose vocabulary must be used
+        paper_prompts: Reproduce the exact prompts used in the NeurIPS 2026 paper
+            (without CONFLICT_NOTE)
     """
     required_verbs = ", ".join(BLOOM_VERBS[vocab_level][:6])
     forbidden_verbs = ", ".join(BLOOM_VERBS[target_level][:6])
@@ -107,6 +117,7 @@ def build_adversarial_prompt(passage_text: str, target_level: int,
         verb_list=", ".join(BLOOM_VERBS[vocab_level][:8]),
         forbidden_verbs=forbidden_verbs,
         required_verbs=required_verbs,
+        conflict_note="" if paper_prompts else CONFLICT_NOTE,
         constraint_hints=CONSTRAINT_HINTS.get(target_level, ""),
     )
 
