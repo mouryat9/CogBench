@@ -1,8 +1,9 @@
 # CogBench 3-rater human study (November 2026)
 
-> **Status:** rating in progress. `items.json`, `answer_key.csv` and the ratings are withheld
-> until all three raters finish; they will be added here
-> afterwards. `sync.sh` and `seed_study.py` are specific to the server that hosts the rating page.
+> **Status:** complete (2026-11-07). Three raters rated all 48 items; results are in `results.md`
+> (Fleiss' kappa 0.74; majority-vote adherence 91.7% standard vs 20.8% adversarial). Ratings are in
+> `ratings/ratings_long.csv` (pseudonymous rater labels). A first round of ratings was discarded because
+> its save timestamps were incompatible with reading the items; the study was rerun with fresh links.
 
 A follow-up to the two-annotator study reported in the NeurIPS 2026 paper (submission #3477). It uses a
 new item set rated by three raters; its results are not part of the camera-ready paper.

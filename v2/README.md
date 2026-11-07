@@ -22,8 +22,8 @@ prompt forbids. `build_adversarial_prompt` now adds one sentence asking the mode
 requirements in other words. The paper's results used the original prompts; pass
 `paper_prompts=True` to reproduce them exactly.
 
-`human_study_3rater/` holds the protocol and scripts of a three-rater human study that is still in
-progress; its results are not reported in the camera-ready paper (see its README).
+`human_study_3rater/` holds the three-rater human study: items, answer key, ratings, analysis code
+and results (see its README).
 
 ---
 

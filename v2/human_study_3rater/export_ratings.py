@@ -23,6 +23,10 @@ def main():
     db = MongoClient("localhost", 27017)["lectura_ai"]
     OUT.mkdir(exist_ok=True)
     data = {n: dump(db[f"cogbench_rating_{n}"]) for n in ("sessions", "questions", "answers")}
+    # Only the current links count; answers from retired links stay in the database
+    # (see seed_study.py --new-round) but are not exported as ratings.
+    live = {s["token"] for s in data["sessions"]}
+    data["answers"] = [a for a in data["answers"] if a["token"] in live]
     for n, rows in data.items():
         rows.sort(key=lambda d: (d.get("token", ""), d.get("item_id", ""), d.get("rater_label", "")))
         (OUT / f"{n}.json").write_text(json.dumps(rows, indent=1, sort_keys=True) + "\n")

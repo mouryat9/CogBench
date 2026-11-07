@@ -101,6 +101,23 @@ def main():
         out["majority_adherence"] = {
             mode: {"n": int(len(g)), "strict": float(g.strict.mean()), "adjacent": float(g.adjacent.mean())}
             for mode, g in j.groupby("mode")}
+        # Meta-review W1: how often is a level-correct generation also a valid question?
+        valid_item = (df.assign(v=df.answerable & df.faithful & df.coherent)
+                        .groupby("item_id").v.mean() >= 0.5)  # majority of raters judged it valid
+        correct = j[j.strict].index
+        out["valid_given_level_correct"] = {
+            "n_items": int(len(correct)),
+            "share_valid": float(valid_item.reindex(correct).mean()) if len(correct) else float("nan")}
+
+    # Rating pace per rater (gaps between consecutive saves, in seconds).
+    pace = {}
+    for rater, g in df.groupby("rater"):
+        t = pd.to_datetime(g.answered_at).sort_values()
+        gaps = t.diff().dt.total_seconds().dropna()
+        pace[rater] = {"minutes_total": float((t.iloc[-1] - t.iloc[0]).total_seconds() / 60),
+                       "median_seconds_per_item": float(gaps.median()) if len(gaps) else float("nan"),
+                       "gaps_under_5s": int((gaps < 5).sum())}
+    out["pace"] = pace
 
     df["valid"] = df.answerable & df.faithful & df.coherent
     out["validity"] = {
@@ -125,6 +142,12 @@ def main():
         for mode, v in out["majority_adherence"].items():
             lines.append(f"- Majority-vote adherence, {mode} (n={v['n']}): strict {v['strict']:.1%}, "
                          f"adjacent {v['adjacent']:.1%}")
+        vg = out["valid_given_level_correct"]
+        lines.append(f"- Valid among majority-level-correct items: {vg['share_valid']:.1%} (n={vg['n_items']})")
+    lines.append("")
+    for rater, p in out["pace"].items():
+        lines.append(f"- Pace, {rater}: {p['minutes_total']:.1f} min total, median {p['median_seconds_per_item']:.0f} s "
+                     f"per item, {p['gaps_under_5s']} gaps under 5 s")
     v = out["validity"]
     lines += ["", f"- Jointly answerable+faithful+coherent: {v['overall']:.1%} "
               f"({', '.join(f'{k} {x:.1%}' for k, x in v['by_mode'].items())})"]

@@ -5,6 +5,9 @@ Usage:
   python seed_study.py                 # 3 raters: Rater A, Rater B, Rater C
   python seed_study.py --raters 4      # add more later (existing links kept)
   python seed_study.py --reset         # reload items (refuses if answers exist)
+  python seed_study.py --new-round     # retire the current links (sessions are copied to
+                                       # cogbench_rating_sessions_archive; their answers stay in
+                                       # cogbench_rating_answers) and mint fresh ones
 
 Links look like https://classrooms.work/cograte/<token> and are written to
 links.txt. Raters see only the passage and question, never the answer key.
@@ -26,11 +29,27 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raters", type=int, default=3)
     ap.add_argument("--reset", action="store_true")
+    ap.add_argument("--new-round", action="store_true")
     args = ap.parse_args()
 
     db = MongoClient("localhost", 27017)["lectura_ai"]
     questions, sessions, answers = (db.cogbench_rating_questions, db.cogbench_rating_sessions,
                                     db.cogbench_rating_answers)
+
+    current_round = max([s.get("round", 1) for s in sessions.find({})] or [1])
+    if args.new_round:
+        old = list(sessions.find({}))
+        if old:
+            archive = db.cogbench_rating_sessions_archive
+            for s in old:
+                s.setdefault("round", current_round)
+                s["retired_at"] = datetime.now(timezone.utc).isoformat()
+                archive.replace_one({"_id": s["_id"]}, s, upsert=True)
+            if archive.count_documents({"_id": {"$in": [s["_id"] for s in old]}}) != len(old):
+                raise SystemExit("Archive copy incomplete; nothing removed")
+            sessions.delete_many({"_id": {"$in": [s["_id"] for s in old]}})
+            print(f"retired {len(old)} links from round {current_round} (answers kept)")
+        current_round += 1
 
     if args.reset:
         n = answers.count_documents({})
@@ -57,6 +76,7 @@ def main():
         sessions.insert_one({
             "token": secrets.token_urlsafe(16),
             "rater_label": f"Rater {string.ascii_uppercase[i]}",
+            "round": current_round,
             "created_at": datetime.now(timezone.utc).isoformat(),
         })
 

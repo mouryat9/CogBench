@@ -1,0 +1,80 @@
+{
+  "raters": [
+    "Rater A",
+    "Rater B",
+    "Rater C"
+  ],
+  "answers_per_rater": {
+    "Rater A": 48,
+    "Rater B": 48,
+    "Rater C": 48
+  },
+  "items_rated_by_all": 48,
+  "pairwise": {
+    "Rater A vs Rater B": {
+      "exact": 0.75,
+      "adjacent": 0.9166666666666666,
+      "cohen_kappa": 0.6963626779124934,
+      "cohen_kappa_quadratic": 0.8844621513944223
+    },
+    "Rater A vs Rater C": {
+      "exact": 0.75,
+      "adjacent": 0.9166666666666666,
+      "cohen_kappa": 0.6950767601905771,
+      "cohen_kappa_quadratic": 0.8825910931174089
+    },
+    "Rater B vs Rater C": {
+      "exact": 0.8541666666666666,
+      "adjacent": 0.9583333333333334,
+      "cohen_kappa": 0.8226912928759895,
+      "cohen_kappa_quadratic": 0.9290756854375308
+    }
+  },
+  "fleiss_kappa": 0.7373808683374515,
+  "krippendorff_alpha_ordinal": 0.8822384587170005,
+  "all_agree_exact": 0.6875,
+  "majority_exists": 0.9791666666666666,
+  "majority_adherence": {
+    "adversarial": {
+      "n": 24,
+      "strict": 0.20833333333333334,
+      "adjacent": 0.4166666666666667
+    },
+    "standard": {
+      "n": 24,
+      "strict": 0.9166666666666666,
+      "adjacent": 0.9583333333333334
+    }
+  },
+  "valid_given_level_correct": {
+    "n_items": 27,
+    "share_valid": 1.0
+  },
+  "pace": {
+    "Rater A": {
+      "minutes_total": 24.398942283333334,
+      "median_seconds_per_item": 15.440025,
+      "gaps_under_5s": 3
+    },
+    "Rater B": {
+      "minutes_total": 46.47728693333333,
+      "median_seconds_per_item": 16.947612,
+      "gaps_under_5s": 3
+    },
+    "Rater C": {
+      "minutes_total": 17.414953183333335,
+      "median_seconds_per_item": 10.959749,
+      "gaps_under_5s": 1
+    }
+  },
+  "validity": {
+    "overall": 1.0,
+    "by_mode": {
+      "adversarial": 1.0,
+      "standard": 1.0
+    },
+    "answerable": 1.0,
+    "faithful": 1.0,
+    "coherent": 1.0
+  }
+}
